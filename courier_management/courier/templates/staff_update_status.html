@@ -1,0 +1,35 @@
+{% extends 'staff_base.html' %}
+
+{% block content %}
+<div class="card shadow p-4">
+    <h3>Update Package Status</h3>
+
+    <p>
+        <strong>Tracking ID:</strong>
+        {{ package.tracking_id }}
+    </p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label class="form-label" for="status">Status</label>
+        <select name="status" class="form-control mb-3" required id="status"> 
+            <option>Picked Up</option>
+            <option>In Transit</option>
+            <option>Out for Delivery</option>
+            <option>Delivered</option>
+        </select>
+
+        <label class="form-label" for="current_city">Current City</label>
+        <input type="text"
+               name="current_city"
+               class="form-control mb-3"
+               value="{{ package.current_city }}"
+               required placeholder="Current City">
+
+        <button class="btn btn-success" type="submit">
+            Update
+        </button>
+    </form>
+</div>
+{% endblock %}

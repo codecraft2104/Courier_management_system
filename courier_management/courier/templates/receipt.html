@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0 rounded-4"
+                 style="background:#111827; color:white;">
+
+                <!-- Header -->
+                <div class="card-header border-0 rounded-top-4 d-flex justify-content-between align-items-center"
+                     style="background:#1e293b;">
+                    <div>
+                        <h3 class="mb-0">🧾 Payment Receipt</h3>
+                        <small class="text-secondary">
+                            Courier Management System
+                        </small>
+                    </div>
+
+                    <span class="badge bg-success px-3 py-2 rounded-pill">
+                        ✅ Paid
+                    </span>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <!-- Invoice Info -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <p><b>Receipt No:</b> RCPT-{{ package.id }}</p>
+                            <p><b>Tracking ID:</b> {{ package.tracking_id }}</p>
+                            <p><b>Date:</b> {{ package.payment_date }}</p>
+                        </div>
+
+                        <div class="col-md-6 text-md-end">
+                            <p><b>Status:</b> {{ package.payment_status }}</p>
+                            <p><b>Payment Mode:</b> UPI</p>
+                        </div>
+                    </div>
+
+                    <hr class="border-secondary">
+
+                    <!-- Package Details -->
+                    <div class="mb-4">
+                        <h5>📦 Package Information</h5>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <p><b>Sender:</b> {{ package.sender_name }}</p>
+                                <p><b>Address:</b> {{ package.sender_address }}</p>
+                                <p><b>Phone:</b> {{ package.sender_phone }}</p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p><b>Receiver:</b> {{ package.receiver_name }}</p>
+                                <p><b>Address:</b> {{ package.receiver_address }}</p>
+                                <p><b>Phone:</b> {{ package.receiver_phone }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="border-secondary">
+
+                    <!-- Amount Details -->
+                    <div class="p-3 rounded-4 mb-4"
+                         style="background:#1e293b;">
+                        <h5>💰 Payment Summary</h5>
+
+                        <div class="d-flex justify-content-between mt-3">
+                            <span>Courier Charge</span>
+                            <span>₹{{ package.amount }}</span>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <span>GST Included</span>
+                            <span>5%</span>
+                        </div>
+
+                        <hr class="border-secondary">
+
+                        <div class="d-flex justify-content-between fs-5">
+                            <b>Total Paid</b>
+                            <b>₹{{ package.amount }}</b>
+                        </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="d-flex gap-3">
+                        <button onclick="window.print()"
+                                class="btn btn-primary w-50 rounded-pill">
+                            🖨 Print Receipt
+                        </button>
+
+                        <button class="btn btn-outline-light w-50 rounded-pill" onclick="downloadPDF()">
+                            📥 Download PDF
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+function downloadPDF() {
+    const element = document.querySelector('.card');
+    const opt = {
+        margin: 1,
+        filename: 'receipt.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(element).save();
+}
+</script>
+
+{% endblock %}

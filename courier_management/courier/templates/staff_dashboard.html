@@ -1,0 +1,57 @@
+{% extends 'staff_base.html' %}
+
+{% block content %}
+
+<h2 class="mb-4">📊 Staff Dashboard</h2>
+
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="card card-box p-4 bg-white">
+            <h5>Total Assigned</h5>
+            <h2>{{ total_packages }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-box p-4 bg-white">
+            <h5>Delivered</h5>
+            <h2>{{ delivered_count }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-box p-4 bg-white">
+            <h5>Pending</h5>
+            <h2>{{ pending_count }}</h2>
+        </div>
+    </div>
+
+</div>
+
+<div class="card card-box mt-4 p-4">
+    <h4>📦 Recent Assigned Packages</h4>
+
+    <table class="table table-bordered mt-3">
+        <thead class="table-dark">
+            <tr>
+                <th>Tracking ID</th>
+                <th>Receiver</th>
+                <th>Status</th>
+                <th>City</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for package in packages %}
+            <tr>
+                <td>{{ package.tracking_id }}</td>
+                <td>{{ package.receiver_name }}</td>
+                <td>{{ package.status }}</td>
+                <td>{{ package.current_city }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

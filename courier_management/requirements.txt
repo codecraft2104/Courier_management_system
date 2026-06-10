@@ -1,0 +1,25 @@
+pip install Django
+pip install Pillow
+pip install mysqlclient
+
+# step1: Open your terminal or command prompt.
+# step2: Navigate to the directory where you want to create your Django project.
+
+# step3: Activate the virtual environment:
+#     - For Windows: `env\Scripts\activate`
+#     - For macOS/Linux: `source env/bin/activate`
+# step4: Install the required packages using pip:
+#     - `pip install -r requirements.txt` 
+# This will install Django, Pillow, and mysqlclient as specified in the requirements.txt file.
+# step5: Once the installation is complete,you can enter into the your project directory "cd courier_management".
+# step6: Goto the settings.py file and configure your database settings to connect to your MySQL database.
+# password = 'your_mysql_password'
+# username = 'your_mysql_username'
+# database_name = 'your_database_name'
+# step7: After configuring the database settings, you can run the following command to apply the migrations and create the necessary database tables:
+#     - `python manage.py makemigrations`
+#     - `python manage.py migrate`
+# step8: Finally, you can start the development server to test your application:
+#     - `python manage.py runserver`
+# You should now be able to access your Django application by navigating to `http://localhost:8000` in your web browser.
+

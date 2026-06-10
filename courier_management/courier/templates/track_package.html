@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+.timeline {
+    position: relative;
+    margin-left: 20px;
+    padding-left: 20px;
+    border-left: 3px solid #0d6efd;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -31px;
+    top: 5px;
+    width: 16px;
+    height: 16px;
+    background: #0d6efd;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 0 0 2px #0d6efd;
+}
+
+.timeline-content {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.bg-success {
+    background: green !important;
+    box-shadow: 0 0 0 2px green !important;
+}
+</style>
+<h2>Track Your Package</h2>
+
+<div class="card shadow p-4">
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label>Enter Tracking ID</label>
+            <input type="text" 
+                   name="tracking_id" 
+                   class="form-control"
+                   placeholder="Enter Tracking ID"
+                   required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Track Package
+        </button>
+    </form>
+</div>
+
+{% if error %}
+<div class="alert alert-danger mt-3">
+    {{ error }}
+</div>
+{% endif %}
+
+{% if history %}
+<div class="mt-4">
+    <h5>Delivery Timeline</h5>
+
+    <div class="timeline">
+        {% for item in history %}
+        <div class="timeline-item mb-4">
+            <div class="d-flex">
+                <div class="me-3">
+                    <span class="badge bg-primary rounded-circle p-3">
+                        {{ forloop.counter }}
+                    </span>
+                </div>
+
+                <div>
+                    <h6 class="mb-1">{{ item.status }}</h6>
+                    <p class="mb-1">📍 {{ item.city }}</p>
+                    <small class="text-muted">
+                        {{ item.updated_at }}
+                    </small>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+{% endblock %}

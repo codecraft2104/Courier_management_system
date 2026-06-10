@@ -1,0 +1,45 @@
+{% extends 'staff_base.html' %}
+
+{% block content %}
+
+<h2 class="mb-4">📦 Assigned Packages</h2>
+
+<div class="card card-box p-4">
+
+    <table class="table table-hover table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Tracking ID</th>
+                <th>Receiver</th>
+                <th>Status</th>
+                <th>City</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for package in packages %}
+            <tr>
+                <td>{{ package.tracking_id }}</td>
+                <td>{{ package.receiver_name }}</td>
+                <td>
+                    <span class="badge bg-warning text-dark">
+                        {{ package.status }}
+                    </span>
+                </td>
+                <td>{{ package.current_city }}</td>
+                <td>
+                    <a href="{% url 'staff_update_status' package.id %}"
+                       class="btn btn-primary btn-sm">
+                        Update Status
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

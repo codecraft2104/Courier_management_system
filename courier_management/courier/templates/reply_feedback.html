@@ -1,0 +1,28 @@
+{% extends 'admin_base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow p-4 rounded-4">
+        <h4>Reply to Feedback</h4>
+
+        <p><strong>User:</strong> {{ feedback.user.username }}</p>
+        <p><strong>Subject:</strong> {{ feedback.subject }}</p>
+        <p><strong>Message:</strong> {{ feedback.message }}</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <textarea name="reply"
+                      class="form-control"
+                      rows="4" placeholder="Type a Reply"
+                      required>{{ feedback.reply }}</textarea>
+
+            <button class="btn btn-success mt-3" type="submit">
+                Send Reply
+            </button>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

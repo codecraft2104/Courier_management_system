@@ -1,0 +1,38 @@
+{% extends 'admin_base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 style="color: white;font-weight: bold;">Assign Packages to Staff</h2>
+
+    <table class="table table-bordered mt-4 table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Tracking ID</th>
+                <th>Receiver</th>
+                <th>City</th>
+                <th>Status</th>
+                <th>Assigned Staff</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for package in packages %}
+            <tr>
+                <td>{{ package.tracking_id }}</td>
+                <td>{{ package.receiver_name }}</td>
+                <td>{{ package.current_city }}</td>
+                <td>{{ package.status }}</td>
+                <td>
+                    {% if package.assigned_staff %}
+                        {{ package.assigned_staff.user.username }}
+                    {% else %}
+                        Not Assigned
+                    {% endif %}
+                </td>
+             
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

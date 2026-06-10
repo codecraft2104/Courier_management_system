@@ -1,0 +1,63 @@
+{% extends 'admin_base.html' %}
+
+{% block content %}
+<h2>Edit User</h2>
+
+<div class="card shadow p-4">
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label>Username</label>
+            <input type="text" name="username"
+                   value="{{ user.username }}"
+                   placeholder="Enter username"
+                   class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label>Email</label>
+            <input type="email" name="email"
+                   value="{{ user.email }}"
+                     placeholder="Enter email address"
+                   class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label>Phone</label>
+            <input type="text" name="phone"
+                   value="{{ profile.phone }}" pattern="[6-9]{1}[0-9]{9}"
+                        maxlength="10"
+                     placeholder="Enter 10-digit phone number"
+                   class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label>Address</label>
+            <textarea name="address"
+                     placeholder="Enter address"
+                      class="form-control">{{ profile.address }}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label>City</label>
+            <input type="text" name="city"
+                   value="{{ profile.city }}"
+                   placeholder="Enter city name"
+                   class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label>Pincode</label>
+            <input type="text" name="pincode"
+                   value="{{ profile.pincode }}" 
+                   placeholder="Enter 6-digit pincode"
+                   class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-success">
+            Update User
+        </button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'staff_base.html' %}
+
+{% block content %}
+<h2 class="mb-4">Delivery History</h2>
+
+<table class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Tracking ID</th>
+            <th>Status</th>
+            <th>City</th>
+            <th>Updated At</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in history %}
+        <tr>
+            <td>{{ item.package.tracking_id }}</td>
+            <td>{{ item.status }}</td>
+            <td>{{ item.city }}</td>
+            <td>{{ item.updated_at }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

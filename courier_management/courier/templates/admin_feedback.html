@@ -1,0 +1,43 @@
+{% extends 'admin_base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow-lg border-0 rounded-4 p-4">
+        <h3 class="mb-4" style="font-weight: bold;">User Feedback Messages</h3>
+
+        <table class="table table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>User</th>
+                    <th>Subject</th>
+                    <th>Message</th>
+                    <th>Rating</th>
+                    <th>Reply</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for item in feedbacks %}
+                <tr>
+                    <td>{{ item.user.username }}</td>
+                    <td>{{ item.subject }}</td>
+                    <td>{{ item.message }}</td>
+                    <td>⭐ {{ item.rating }}</td>
+                    <td>{{ item.reply|default:"No reply yet" }}</td>
+                    <td>
+                        <a href="{% url 'reply_feedback' item.id %}"
+                           class="btn btn-sm btn-primary">
+                            Reply
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}

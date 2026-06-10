@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow p-4">
+        <h3>My Packages</h3>
+
+        <a href="{% url 'add_package' %}" class="btn btn-primary mb-3">
+            Add Package
+        </a>
+
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Tracking ID</th>
+                    <th>Sender</th>
+                    <th>Receiver</th>
+                    <th>Weight</th>
+                    <th>Status</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for package in packages %}
+                <tr>
+                    <td>{{ package.tracking_id }}</td>
+                    <td>
+                        {{ package.sender_name }} <br>
+                        {{ package.sender_phone }}
+                    </td>
+                    <td>
+                        {{ package.receiver_name }} <br>
+                        {{ package.receiver_phone }}
+                    </td>
+                    <td>{{ package.package_weight }} kg</td>
+                    <td>{{ package.status }}</td>
+                    <td>
+                        {% if package.package_image %}
+                            <img src="{{ package.package_image.url }}" width="80" alt="Package Image">
+                        {% else %}
+                            <img src="/media/defaults/default-package.png" width="80" alt="Default Package Image">
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if package.status == "Booked" %}
+                            <a href="{% url 'edit_package' package.id %}"
+                               class="btn btn-warning btn-sm">Edit</a>
+
+                            <a href="{% url 'delete_package' package.id %}"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Delete this package?')">
+                               Delete
+                            </a>
+                        {% else %}
+                            <span class="text-muted">Edit Option Not Available</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center">
+                        No packages found
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

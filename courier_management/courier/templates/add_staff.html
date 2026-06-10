@@ -1,0 +1,37 @@
+{% extends 'admin_base.html' %}
+
+{% block content %}
+<h3 style="font-weight: bold;color: white;">Add Staff</h3>
+<div class="card shadow p-4">
+    
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <input type="text" name="username"
+               class="form-control mb-3"
+               placeholder="Username" required>
+
+        <input type="password" name="password"
+               class="form-control mb-3"
+               placeholder="Password" required>
+
+        <input type="text" name="phone"
+               class="form-control mb-3"
+               placeholder="Phone" pattern="[6-9]{1}[0-9]{9}"
+                        maxlength="10" required>
+
+        <input type="text" name="city"
+               class="form-control mb-3"
+               placeholder="City" required>
+
+        <input type="text" name="role"
+               class="form-control mb-3"
+               placeholder="Role" required>
+
+        <button class="btn btn-primary" type="submit">
+            Add Staff
+        </button>
+    </form>
+</div>
+{% endblock %}

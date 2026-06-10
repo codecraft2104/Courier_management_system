@@ -1,0 +1,37 @@
+{% extends 'admin_base.html' %}
+
+{% block content %}
+<div class="card shadow p-4">
+    <h3>Assign Package to Staff</h3>
+
+    <p>
+        <strong>Tracking ID:</strong>
+        {{ package.tracking_id }}
+    </p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label for="staffSelect" class="form-label">
+            Select Staff
+        </label>
+
+        <select id="staffSelect"
+                name="staff_id"
+                class="form-control"
+                required>
+            <option value="">Choose staff</option>
+
+            {% for staff in staffs %}
+            <option value="{{ staff.id }}">
+                {{ staff.user.username }} - {{ staff.city }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <button class="btn btn-primary mt-3" type="submit">
+            Assign
+        </button>
+    </form>
+</div>
+{% endblock %}

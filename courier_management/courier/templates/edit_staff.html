@@ -1,0 +1,41 @@
+{% extends 'admin_base.html' %}
+
+{% block content %}
+
+<div class="card shadow p-4">
+    <h3>Edit Staff</h3>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <input type="text"
+               name="username"
+               value="{{ staff.user.username }}"
+               class="form-control mb-3"
+               required placeholder="Username">
+
+        <input type="text"
+               name="phone"
+               value="{{ staff.phone }}"
+               class="form-control mb-3" pattern="[6-9]{1}[0-9]{9}"
+                        maxlength="10"
+               required placeholder="Phone">
+
+        <input type="text"
+               name="city"
+               value="{{ staff.city }}"
+               class="form-control mb-3"
+               required placeholder="City">
+
+        <input type="text"
+               name="role"
+               value="{{ staff.role }}"
+               class="form-control mb-3"
+               required placeholder="Role">
+
+        <button class="btn btn-warning" type="submit">
+            Update Staff
+        </button>
+    </form>
+</div>
+{% endblock %}

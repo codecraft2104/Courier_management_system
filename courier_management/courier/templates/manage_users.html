@@ -1,0 +1,44 @@
+{% extends 'admin_base.html' %}
+
+{% block content %}
+<h2 style="color: white;font-weight: bold;">Manage Users</h2>
+
+<a href="{% url 'add_user' %}" class="btn btn-primary mb-3">
+    Add New User
+</a>
+
+<table class="table table-bordered shadow">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>City</th>
+            <th>Pincode</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.userprofile.phone }}</td>
+            <td>{{ user.userprofile.city }}</td>
+            <td>{{ user.userprofile.pincode }}</td>
+            <td>
+                <a href="{% url 'edit_user' user.id %}" class="btn btn-warning btn-sm me-2" style="display:inline-block; padding:6px 12px; cursor:pointer;">
+                    Edit
+                </a>
+                <a href="{% url 'delete_user' user.id %}" class="btn btn-danger btn-sm" style="display:inline-block; padding:6px 12px; cursor:pointer;" onclick="return confirm('Delete this user?');">
+                    Delete
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

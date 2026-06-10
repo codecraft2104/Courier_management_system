@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login | Courier Management</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body{
+            min-height:100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            overflow: hidden;
+        }
+
+        .login-container{
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            animation: fadeIn 1s ease;
+        }
+
+        .login-card{
+            width: 900px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            background: white;
+            animation: slideUp 0.8s ease;
+        }
+
+        .left-side{
+            background: #f8f9fa;
+            padding: 50px;
+        }
+
+        .right-side{
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding: 40px;
+        }
+
+        .right-side img{
+            width: 100%;
+            max-width: 350px;
+            animation: floatImage 3s ease-in-out infinite;
+        }
+
+        .btn-login{
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-login:hover{
+            transform: scale(1.03);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        @keyframes fadeIn{
+            from{opacity:0;}
+            to{opacity:1;}
+        }
+
+        @keyframes slideUp{
+            from{
+                transform: translateY(50px);
+                opacity:0;
+            }
+            to{
+                transform: translateY(0);
+                opacity:1;
+            }
+        }
+
+        @keyframes floatImage{
+            0%{transform: translateY(0px);}
+            50%{transform: translateY(-10px);}
+            100%{transform: translateY(0px);}
+        }
+    
+    body{
+        min-height:100vh;
+        overflow:hidden;
+        position: relative;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+    }
+
+    #particles-js{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 0;
+    }
+
+    .login-container,
+    .register-container{
+        position: relative;
+        z-index: 2;
+    }
+
+    .login-card,
+    .register-card{
+        position: relative;
+        z-index: 2;
+    }
+
+    </style>
+</head>
+<body>
+<div id="particles-js"></div>
+<div class="container login-container">
+    <div class="row login-card">
+
+        <!-- Left Form -->
+        <div class="col-md-6 left-side">
+            <h2 class="mb-4 text-center">Welcome Back</h2>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <input type="text" name="username"
+                           class="form-control"
+                           placeholder="Username" required>
+                </div>
+
+                <div class="mb-3">
+                    <input type="password" name="password"
+                           class="form-control"
+                           placeholder="Password" required>
+                </div>
+
+                <button type="submit"
+                        class="btn btn-primary w-100 btn-login">
+                    Login
+                </button>
+            </form>
+
+            <div class="text-center mt-3">
+                <a href="{% url 'register' %}">
+                    Create New Account
+                </a>
+            </div>
+        </div>
+
+        <!-- Right Image -->
+        <div class="col-md-6 right-side">
+            <img src="https://cdn-icons-png.flaticon.com/512/1048/1048953.png"
+                 alt="Courier">
+        </div>
+
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+particlesJS("particles-js", {
+    particles: {
+        number: {
+            value: 80,
+            density: {
+                enable: true,
+                value_area: 800
+            }
+        },
+        color: {
+            value: "#ffffff"
+        },
+        shape: {
+            type: "circle"
+        },
+        opacity: {
+            value: 0.5
+        },
+        size: {
+            value: 3,
+            random: true
+        },
+        line_linked: {
+            enable: true,
+            distance: 150,
+            color: "#ffffff",
+            opacity: 0.4,
+            width: 1
+        },
+        move: {
+            enable: true,
+            speed: 3
+        }
+    },
+
+    interactivity: {
+        detect_on: "canvas",
+        events: {
+            onhover: {
+                enable: true,
+                mode: "repulse"
+            },
+            onclick: {
+                enable: true,
+                mode: "push"
+            }
+        },
+        modes: {
+            repulse: {
+                distance: 100
+            },
+            push: {
+                particles_nb: 4
+            }
+        }
+    },
+
+    retina_detect: true
+});
+</script>
+</body>
+</html>

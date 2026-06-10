@@ -1,0 +1,44 @@
+{% extends 'admin_base.html' %}
+
+{% block content %}
+
+<h3 style="font-weight: bold;color: white;">Manage Staff</h3>
+<div class="card shadow p-4">
+
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Staff ID</th>
+                <th>Username</th>
+                <th>Phone</th>
+                <th>City</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for staff in staff_members %}
+            <tr>
+                <td>{{ staff.staff_id }}</td>
+                <td>{{ staff.user.username }}</td>
+                <td>{{ staff.phone }}</td>
+                <td>{{ staff.city }}</td>
+                <td>{{ staff.role }}</td>
+                <td>
+                    <a href="{% url 'edit_staff' staff.id %}"
+                       class="btn btn-warning btn-sm">
+                        Edit
+                    </a>
+
+                    <a href="{% url 'delete_staff' staff.id %}"
+                       class="btn btn-danger btn-sm">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

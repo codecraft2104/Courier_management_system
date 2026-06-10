@@ -1,0 +1,57 @@
+{% extends 'admin_base.html' %}
+
+{% block content %}
+<h3 style="font-weight: bold;color: white;">Manage Packages</h3>
+<div class="card shadow p-4">
+    
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Tracking ID</th>
+                <th>User</th>
+                <th>Receiver</th>
+                <th>Status</th>
+                <th>Assigned Staff</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for package in packages %}
+            <tr>
+                <td>{{ package.tracking_id }}</td>
+                <td>{{ package.user.username }}</td>
+                <td>{{ package.receiver_name }}</td>
+                <td>
+                    <span class="badge bg-primary">
+                        {{ package.status }}
+                    </span>
+                </td>
+
+                <td>
+                    {% if package.assigned_staff %}
+                        {{ package.assigned_staff.user.username }}
+                    {% else %}
+                        Not Assigned
+                    {% endif %}
+                </td>
+
+                <td>
+                    <a href="{% url 'update_status' package.id %}"
+                       class="btn btn-warning btn-sm">
+                        Update Status
+                    </a>
+
+                    <a href="{% url 'assign_package' package.id %}"
+                       class="btn btn-info btn-sm">
+                        Assign Staff
+                    </a>
+                    
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

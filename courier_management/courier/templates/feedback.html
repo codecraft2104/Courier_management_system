@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow-lg border-0 rounded-4 p-4">
+        <h3 class="mb-4">Support Conversation</h3>
+
+        <div class="feedback-scroll">
+
+            {% for item in feedbacks %}
+
+                <!-- USER MESSAGE -->
+                <div class="d-flex justify-content-end mb-3">
+                    <div class="bg-primary text-white p-3 rounded-4 shadow-sm feedback-card">
+                        <strong>{{ item.subject }}</strong><br>
+                        {{ item.message }}
+                        <br>
+                        <small>⭐ {{ item.rating }}/5</small><br>
+                        <small>{{ item.created_at }}</small>
+                    </div>
+                </div>
+
+                <!-- ADMIN REPLY -->
+                {% if item.reply %}
+                <div class="d-flex justify-content-start mb-3">
+                    <div class="bg-light border p-3 rounded-4 shadow-sm feedback-card">
+                        <strong>Admin Reply</strong><br>
+                        {{ item.reply }}
+                    </div>
+                </div>
+                {% endif %}
+
+            {% endfor %}
+        </div>
+
+        <hr>
+
+        <h5 class="mb-3">Send New Feedback</h5>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <input type="text"
+                   name="subject"
+                   class="form-control mb-3"
+                   placeholder="Enter subject"
+                   required>
+
+            <textarea name="message"
+                      class="form-control mb-3"
+                      rows="4"
+                      placeholder="Write your message..."
+                      required></textarea>
+
+            <label for="rating" class="form-label">Rating</label>
+            <select id="rating" name="rating" class="form-select mb-3" required>
+                <option value="">Select Rating</option>
+                <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+                <option value="4">⭐⭐⭐⭐ Good</option>
+                <option value="3">⭐⭐⭐ Average</option>
+                <option value="2">⭐⭐ Poor</option>
+                <option value="1">⭐ Bad</option>
+            </select>
+
+            <button class="btn btn-primary rounded-pill px-4" type="submit">
+                Send Feedback
+            </button>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

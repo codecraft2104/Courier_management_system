@@ -1,0 +1,61 @@
+{% extends 'admin_base.html' %}
+
+{% block content %}
+
+<h2 class="mb-4" style="color: white;font-weight: bold;">User Feedback Management</h2>
+
+<div class="card shadow border-0 rounded-4 p-4">
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>User</th>
+                <th>Subject</th>
+                <th>Rating</th>
+                <th>Message</th>
+                <th>Reply</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for feedback in feedbacks %}
+            <tr>
+                <td>{{ feedback.user.username }}</td>
+                <td>{{ feedback.subject }}</td>
+                <td>{{ feedback.rating }}/5 ⭐</td>
+                <td>{{ feedback.message }}</td>
+                <td>
+                    {% if feedback.reply %}
+                        {{ feedback.reply }}
+                    {% else %}
+                        <span class="text-danger">No Reply</span>
+                    {% endif %}
+                </td>
+                <td>{{ feedback.created_at }}</td>
+                <td>
+                    <a href="{% url 'reply_feedback' feedback.id %}"
+                       class="btn btn-primary btn-sm">
+                        Reply
+                    </a>
+
+                    <!-- <a href="{% url 'delete_feedback' feedback.id %}"
+                       class="btn btn-danger btn-sm">
+                        Delete
+                    </a> -->
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="text-center">
+                    No feedback available
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

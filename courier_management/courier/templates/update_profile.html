@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+<h2>Update Profile</h2>
+
+<div class="card shadow p-4">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label for="phone">Phone</label>
+        <input type="text" id="phone" name="phone" value="{{ profile.phone }}" placeholder="Enter your phone number" pattern="[6-9]{1}[0-9]{9}"
+                        maxlength="10" class="form-control mb-3">
+        
+        <label for="address">Address</label>
+        <textarea id="address" name="address" placeholder="Enter your address" class="form-control mb-3">{{ profile.address }}</textarea>
+        
+        <label for="city">City</label>
+        <input type="text" id="city" name="city" value="{{ profile.city }}" placeholder="Enter your city" class="form-control mb-3">
+        
+        <label for="pincode">Pincode</label>
+        <input type="text" id="pincode" name="pincode" value="{{ profile.pincode }}" placeholder="Enter your pincode" class="form-control mb-3">
+
+        <label for="profile_image">Profile Image</label>
+        <input type="file" id="profile_image" name="profile_image" class="form-control mb-3" title="Upload your profile image">
+
+        <button type="submit" class="btn btn-success">
+            Update Profile
+        </button>
+    </form>
+</div>
+{% endblock %}

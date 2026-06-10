@@ -1,0 +1,77 @@
+{% extends 'admin_base.html' %}
+
+{% block content %}
+<h2>Analytics Charts</h2>
+
+<div class="card shadow">
+    <div class="card-body">
+        <canvas id="packageChart"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const bookedCount = Number("{{ booked_count|default:0 }}");
+const transitCount = Number("{{ transit_count|default:0 }}");
+const deliveredCount = Number("{{ delivered_count|default:0 }}");
+
+const ctx = document.getElementById('packageChart');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Booked', 'In Transit', 'Delivered'],
+        datasets: [{
+            label: 'Package Count',
+            data: [bookedCount, transitCount, deliveredCount],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+
+<div class="card shadow mt-4">
+    <div class="card-body">
+        <h4>Monthly Package Bookings</h4>
+        <canvas id="monthlyChart"></canvas>
+    </div>
+</div>
+
+<script>
+const monthLabels = JSON.parse('{{ months|escapejs }}');
+const bookingCounts = JSON.parse('{{ counts|escapejs }}');
+
+const monthlyCtx = document.getElementById('monthlyChart');
+
+new Chart(monthlyCtx, {
+    type: 'line',
+    data: {
+        labels: monthLabels,
+        datasets: [{
+            label: 'Bookings per Month',
+            data: bookingCounts,
+            fill: false,
+            tension: 0.3,
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+{% endblock %}
